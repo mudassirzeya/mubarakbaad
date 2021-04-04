@@ -1,0 +1,1 @@
+web: gunicorn WISHING.wsgi --log-file -

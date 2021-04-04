@@ -1,0 +1,65 @@
+{% extends "card/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+#share{
+    display: inline!important;
+}
+</style>
+<br>
+        {% if user.name %}
+            {% if user.languages == 'english' %}
+            <h5 class="text-center text-warning"><strong class="h2">{{user.name}}</strong> is Wishing you and your Family</h5>
+            {% elif user.languages == 'urdu' %}
+            <h5 class="text-center text-warning"><strong class="h3">{{user.name}}</strong><br> کی طرف سے آپ سبھی کو رمضان مبارک </h5>
+            {% endif %}
+        {% else %}
+        <h5 class="text-center text-warning">Wishing you and your Family a Very Happy Ramadan</h5>
+        {% endif %}
+
+        <div class="row m-0 ">
+            <div class="col-lg-6 mx-auto col text-center ">
+                <div class="card m-5" style="background: transparent; border-style: none;">
+                    {% if user.profile_pic %}
+                    <img class="card-img-top" src="{{user.profile_pic.url}}" alt="" style="opacity: 0.6; border-radius: 4%;">
+                    {% else %}
+                    <img class="card-img-top" src="{% static '/image/pic2.png' %}" alt="">
+                    {% endif %}
+                    <img class="card-img-bottom" src="{% static '/image/mubarak.gif' %}">
+                </div>
+                {% if user.languages == 'english' %}
+                <a id="share"
+                    href="whatsapp://send?text= {{user.name}}  ने आपके लिए कुछ भेजा है ,यहाँ क्लिक करें 👇👇 https://mudassir.pythonanywhere.com/wishing/{{user.random_str}}"
+                    data-action="share/whatsapp/share"><button
+                        class="btn btn-success"><img src="{% static 'image/icon.png' %}" height="25" width="25"> Share on Whatsapp</button></a>
+                {% elif user.languages == 'urdu' %}
+                <a id="share"
+                    href="whatsapp://send?text= {{user.name}}  ने आपके लिए कुछ भेजा है ,यहाँ क्लिक करें 👇👇 https://mudassir.pythonanywhere.com/wishing/{{user.random_str}}"
+                    data-action="share/whatsapp/share"><img src="{% static 'image/icon.png' %}" height="35" width="35"><button
+                        class="btn btn-success">وہٹساپ پر شیئر کریں</button></a>
+                {% else %}
+                <a id="share" href="whatsapp://send?text= {{user.name}}  ने आपके लिए कुछ भेजा है ,यहाँ क्लिक करें 👇👇 https://mudassir.pythonanywhere.com/wishing/{{user.random_str}}" data-action="share/whatsapp/share"><img src="{% static 'image/icon.png' %}" height="35" width="35"><button
+                        class="btn btn-success">Whatsapp पर शेयर करें</button></a>
+                {% endif %}
+               
+                <br>
+                <br>
+                <br>
+                {% if user.languages == 'english' %}
+                <p class="h3 text-info text-center">Create your Own Card<br> <i class="fa fa-hand-o-down " aria-hidden="true"></i>
+                </p>
+                <a class="btn btn-success" href="{% url 'create' %}">Click to Create your card</a>
+                {% elif user.languages == 'urdu' %}
+                <p class="h3 text-info text-center">اپنا کارڈ بنانے کے لئے یہاں کلک کریں<br> <i class="fa fa-hand-o-down " aria-hidden="true"></i>
+                </p>
+                <a class="btn btn-success" href="{% url 'create' %}">Create your own card</a>
+                {% else %}
+                <p class="h3 text-info text-center">अपना कार्ड बनाएं<br> <i class="fa fa-hand-o-down " aria-hidden="true"></i>
+                </p>
+                <a class="btn btn-success" href="{% url 'create' %}">Create your card</a>
+                {% endif %}
+                <br>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+{% endblock %}
